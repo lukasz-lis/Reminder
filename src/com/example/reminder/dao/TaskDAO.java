@@ -14,12 +14,12 @@ import com.example.reminder.entity.TaskEntity;
 
 public class TaskDAO {
 
-	private static final String TASK_NAME_COLUMN = "TASK_NAME";
-	private static final String TASK_STATUS_COLUMN = "TASK_STATUS";
-	private static final String TASK_DUE_DATE_COLUMN = "TASK_DUE_DATE";
-	private static final String TASK_GEO_COLUMN = "TASK_GEO";
-	private static final String TASK_ID_COLUMN = "_ID";
-	private static final String TASK_TABLE = "TASK_T";
+	public static final String TASK_NAME_COLUMN = "TASK_NAME";
+	public static final String TASK_STATUS_COLUMN = "TASK_STATUS";
+	public static final String TASK_DUE_DATE_COLUMN = "TASK_DUE_DATE";
+	public static final String TASK_GEO_COLUMN = "TASK_GEO";
+	public static final String TASK_ID_COLUMN = "_ID";
+	public static final String TASK_TABLE = "TASK_T";
 
 	private static final String[] ALL_COLUMNS = {TASK_ID_COLUMN, TASK_NAME_COLUMN,
 			TASK_STATUS_COLUMN, TASK_DUE_DATE_COLUMN, TASK_GEO_COLUMN };
@@ -40,6 +40,16 @@ public class TaskDAO {
 		dbHelper.close();
 	}
 
+	public void update(TaskEntity task) {
+		ContentValues values = new ContentValues();
+		if (task.getTaskStatus() == null) {
+			values.put(TASK_STATUS_COLUMN, "NOTDONE");
+		} else {
+			values.put(TASK_STATUS_COLUMN, task.getTaskStatus());
+		}
+		db.update(TASK_TABLE, values, TASK_ID_COLUMN+"="+task.getId().toString(), null);
+	}
+	
 	public long save(TaskEntity task) {
 		ContentValues values = new ContentValues();
 		values.put(TASK_NAME_COLUMN, task.getTaskName());
@@ -74,9 +84,9 @@ public class TaskDAO {
 
 	public TaskEntity cursorToTaskEntity(Cursor cursor) {
 		TaskEntity task = new TaskEntity();
-		task.setTaskName(cursor.getString(0));
-		task.setTaskStatus(cursor.getString(1));
-		task.setTaskDueDate(cursor.getString(2));
+		task.setTaskName(cursor.getString(1));
+		task.setTaskStatus(cursor.getString(2));
+		task.setTaskDueDate(cursor.getString(3));
 		task.setTaskGeo(cursor.getString(3));
 		task.setId(cursor.getInt(0));
 

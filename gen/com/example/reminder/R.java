@@ -31,12 +31,14 @@ public final class R {
         public static final int info=0x7f020003;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000e;
+        public static final int action_settings=0x7f090010;
         public static final int addReminder=0x7f090009;
         public static final int addTask=0x7f090006;
+        public static final int checkedBox=0x7f09000e;
         public static final int exit=0x7f090007;
         public static final int imageButton2=0x7f090008;
         public static final int info=0x7f09000a;
+        public static final int name=0x7f09000f;
         public static final int taskDueDate=0x7f090003;
         public static final int taskGeo=0x7f090005;
         public static final int taskList=0x7f09000b;
@@ -51,6 +53,7 @@ public final class R {
         public static final int activity_add_reminder=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int info_page=0x7f030002;
+        public static final int task_row=0x7f030003;
     }
     public static final class menu {
         public static final int add_reminder=0x7f080000;

@@ -1,7 +1,13 @@
 package com.example.reminder;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,22 +23,23 @@ public class AddReminderActivity extends Activity {
 
 	private Button addButton;
 	private TaskDAO taskDAO;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_reminder);
 		taskDAO = new TaskDAO(getBaseContext());
-		addButton = (Button)findViewById(R.id.addTask);
+		addButton = (Button) findViewById(R.id.addTask);
 		addButton.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				addNewTask();
-				startActivity(new Intent(getApplicationContext(), MainActivity.class));
-				
-				
+				addNewAlarmForTask();
+				startActivity(new Intent(getApplicationContext(),
+						MainActivity.class));
+
 			}
 		});
 	}
@@ -43,16 +50,43 @@ public class AddReminderActivity extends Activity {
 		getMenuInflater().inflate(R.menu.add_reminder, menu);
 		return true;
 	}
-	
-	private void addNewTask() {
-		TaskEntity newTask = new TaskEntity();
-		newTask.setTaskDueDate(((EditText)findViewById(R.id.taskDueDate)).getText().toString());
-		newTask.setTaskName(((EditText)findViewById(R.id.taskName)).getText().toString());
-		newTask.setTaskGeo(((EditText)findViewById(R.id.taskGeo)).getText().toString());
-		newTask.setTaskStatus("NOTDONE");
-		taskDAO.open();
-		taskDAO.save(newTask);
+
+	@SuppressLint("NewApi")
+	private void addNewAlarmForTask() {
+		TaskEntity temp = getTaskFormView();
+		if (temp.getTaskDueDate() == null && temp.getTaskDueDate().isEmpty()) {
+			return;
+		}
+
+		Intent intent = new Intent();
+		intent.putExtra("TASK_NAME", temp.getTaskName());
+
+		Calendar now = Calendar.getInstance();
+		now.add(Calendar.SECOND, 2);
 		
+		PendingIntent sender = PendingIntent.getBroadcast(get, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		
+		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+		alarmManager.set(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), sender);
+	}
+
+	private TaskEntity getTaskFormView() {
+		TaskEntity newTask = new TaskEntity();
+		newTask.setTaskDueDate(((EditText) findViewById(R.id.taskDueDate))
+				.getText().toString());
+		newTask.setTaskName(((EditText) findViewById(R.id.taskName)).getText()
+				.toString());
+		newTask.setTaskGeo(((EditText) findViewById(R.id.taskGeo)).getText()
+				.toString());
+		newTask.setTaskStatus("NOTDONE");
+		return newTask;
+	}
+
+	private void addNewTask() {
+		taskDAO.open();
+		taskDAO.save(getTaskFormView());
+
 	}
 
 }
