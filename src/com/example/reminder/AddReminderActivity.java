@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -50,25 +51,22 @@ public class AddReminderActivity extends Activity {
 		getMenuInflater().inflate(R.menu.add_reminder, menu);
 		return true;
 	}
-
-	@SuppressLint("NewApi")
+	
 	private void addNewAlarmForTask() {
+		Log.d(ALARM_SERVICE, "Dodaje alarm");
 		TaskEntity temp = getTaskFormView();
-		if (temp.getTaskDueDate() == null && temp.getTaskDueDate().isEmpty()) {
-			return;
-		}
 
-		Intent intent = new Intent();
+		Intent intent = new Intent(this, AlarmReciever.class);
 		intent.putExtra("TASK_NAME", temp.getTaskName());
 
 		Calendar now = Calendar.getInstance();
-		now.add(Calendar.SECOND, 2);
+		now.add(Calendar.SECOND, 10);
 		
-		PendingIntent sender = PendingIntent.getBroadcast(get, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		PendingIntent sender = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 		
-		AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+		AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-		alarmManager.set(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), sender);
+		alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, now.getTimeInMillis(), 6000, sender);
 	}
 
 	private TaskEntity getTaskFormView() {
