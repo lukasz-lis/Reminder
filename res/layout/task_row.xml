@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal" >
 
     <CheckBox
         android:id="@+id/checkedBox"
@@ -12,12 +12,26 @@
         android:src="@android:drawable/star_big_on"
         android:clickable="false" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:clickable="false" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </LinearLayout>
 
 </LinearLayout>

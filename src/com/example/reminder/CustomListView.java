@@ -40,7 +40,9 @@ public class CustomListView extends ArrayAdapter<TaskEntity> {
 		View rowView = inflater.inflate(R.layout.task_row, parent, false);
 		TextView textView = (TextView) rowView.findViewById(R.id.name);
 		CheckBox checkBox = (CheckBox) rowView.findViewById(R.id.checkedBox);
+		TextView dateView = (TextView) rowView.findViewById(R.id.date);
 		textView.setText(values.get(position).getTaskName());
+		dateView.setText(values.get(position).getTaskDueDate());		
 		// Change the icon for Windows and iPhone
 		String s = values.get(position).getTaskStatus();
 		if (s.equals("DONE")) {

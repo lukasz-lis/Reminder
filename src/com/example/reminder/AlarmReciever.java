@@ -11,8 +11,8 @@ public class AlarmReciever extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// TODO Auto-generated method stub
-		Toast.makeText(context, intent.getExtras().getString("TASK_NAME"), Toast.LENGTH_LONG).show();
-		Log.d("RECIVER", "Reciver dziala hurrey!");
+		Toast.makeText(context, "Przypomnienie, zadanie do wykonainia: "+intent.getExtras().getString("TASK_NAME"), Toast.LENGTH_LONG).show();
+		Log.d("Przypominacz", "Pominajka dziala!");
 	}
 
 }

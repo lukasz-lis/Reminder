@@ -17,7 +17,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 	private static final String TO_DO_DATABASE_CREATE = "CREATE TABLE TASK_T( _ID INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ "TASK_NAME TEXT NOT NULL, "
 			+ "TASK_STATUS TEXT NOT NULL, "
-			+ "TASK_DUE_DATE TEXT NOT NULL, " + "TASK_GEO TEXT NOT NULL);";
+			+ "TASK_DUE_DATE TEXT NOT NULL, " 
+			+ "TASK_GEO TEXT NOT NULL, " 
+			+ "TASK_ID TEXT NOT NULL);";
 	private static final String TO_DO_DATABASE_DROP = "DROP TABLE IF EXISTS TASK_T";
 
 	@Override

@@ -2,12 +2,14 @@ package com.example.reminder.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.reminder.DataBaseHelper;
 import com.example.reminder.entity.TaskEntity;
@@ -19,10 +21,11 @@ public class TaskDAO {
 	public static final String TASK_DUE_DATE_COLUMN = "TASK_DUE_DATE";
 	public static final String TASK_GEO_COLUMN = "TASK_GEO";
 	public static final String TASK_ID_COLUMN = "_ID";
+	public static final String TASK_IDS_COLUMN = "TASK_ID";
 	public static final String TASK_TABLE = "TASK_T";
 
 	private static final String[] ALL_COLUMNS = {TASK_ID_COLUMN, TASK_NAME_COLUMN,
-			TASK_STATUS_COLUMN, TASK_DUE_DATE_COLUMN, TASK_GEO_COLUMN };
+			TASK_STATUS_COLUMN, TASK_DUE_DATE_COLUMN, TASK_GEO_COLUMN, TASK_IDS_COLUMN};
 
 	private DataBaseHelper dbHelper;
 	private SQLiteDatabase db;
@@ -50,6 +53,11 @@ public class TaskDAO {
 		db.update(TASK_TABLE, values, TASK_ID_COLUMN+"="+task.getId().toString(), null);
 	}
 	
+	public void delete(TaskEntity task) {
+		Log.d("Usuwam taks:", task.getId().toString());
+		db.delete(TASK_TABLE, TASK_ID_COLUMN+"="+task.getId(), null);
+	}
+	
 	public long save(TaskEntity task) {
 		ContentValues values = new ContentValues();
 		values.put(TASK_NAME_COLUMN, task.getTaskName());
@@ -60,6 +68,7 @@ public class TaskDAO {
 			values.put(TASK_STATUS_COLUMN, task.getTaskStatus());
 		}
 		values.put(TASK_GEO_COLUMN, task.getTaskGeo());
+		values.put(TASK_IDS_COLUMN, task.getTaskId());
 		return db.insert(TASK_TABLE, null, values);
 	}
 
@@ -87,7 +96,9 @@ public class TaskDAO {
 		task.setTaskName(cursor.getString(1));
 		task.setTaskStatus(cursor.getString(2));
 		task.setTaskDueDate(cursor.getString(3));
-		task.setTaskGeo(cursor.getString(3));
+		task.setTaskGeo(cursor.getString(4));
+		Log.d("task id", cursor.getString(5));
+		task.setTaskId(cursor.getString(5));
 		task.setId(cursor.getInt(0));
 
 		return task;

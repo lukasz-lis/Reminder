@@ -7,6 +7,7 @@ public class TaskEntity {
 	private String taskDueDate;
 	private String taskStatus;
 	private String taskGeo;
+	private String taskId;
 
 	public Integer getId() {
 		return id;
@@ -48,11 +49,19 @@ public class TaskEntity {
 		this.taskStatus = taskStatus;
 	}
 
+	public String getTaskId() {
+		return taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+
 	@Override
 	public String toString() {
 		return "TaskEntity [taskName=" + taskName + ", id=" + id
 				+ ", taskDueDate=" + taskDueDate + ", taskStatus=" + taskStatus
-				+ ", taskGeo=" + taskGeo + "]";
+				+ ", taskGeo=" + taskGeo + ", taskId=" + taskId + "]";
 	}
 
 }

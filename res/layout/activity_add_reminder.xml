@@ -1,7 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,17 +13,12 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Podaj nazwe zadania"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Podaj nazwe zadania" />
 
     <EditText
         android:id="@+id/taskName"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
         android:ems="10" >
 
         <requestFocus />
@@ -32,44 +28,36 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/taskName"
-        android:text="Podaj date przypomnienia"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Podaj date przypomnienia" />
 
-    <EditText
-        android:id="@+id/taskDueDate"
+    <Button
+        android:id="@+id/changeDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:ems="10"
-        android:inputType="date" />
+        android:text="Ustaw date" />
+
+    <Button
+        android:id="@+id/changeTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ustaw czas" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/taskDueDate"
-        android:text="Podaj miejsce"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="Podaj miejsce przypomnienia" />
 
     <EditText
         android:id="@+id/taskGeo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
         android:ems="10" />
 
     <Button
         android:id="@+id/addTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/taskGeo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="96dp"
-        android:text="Dodaj" />
+        android:text="Dodaj zadanie" />
 
-</RelativeLayout>
+</LinearLayout>
